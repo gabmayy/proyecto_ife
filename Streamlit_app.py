@@ -113,3 +113,15 @@ ax.set_title("Top 10 programas académicos por número de estudiantes")
 ax.set_ylabel("Cantidad de estudiantes")
 ax.set_xlabel("ID del programa")
 st.pyplot(fig)
+
+#Correlación entre variables en heatmap
+num_df = df.select_dtypes(include="number")
+
+# Calcular matriz de correlación
+corr = num_df.corr(numeric_only=True)
+
+# Mostrar matriz como heatmap
+plt.figure(figsize=(14, 10))
+sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", square=True)
+plt.title("Mapa de correlación entre variables numéricas")
+st.pyplot(plt)
