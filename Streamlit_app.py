@@ -35,7 +35,7 @@ for i, col in enumerate(df.columns):
     nan_count_col = df[col].isna().sum()
     valid_count_col = total - nan_count_col
 
-    # 🎨 Pie chart
+    #Pie chart
     sizes = [valid_count_col, nan_count_col]
     labels = ["Válidos", "NaN"]
     colors = ["#66bb6a", "#ef5350"]
@@ -84,7 +84,7 @@ for i, col in enumerate(df.columns):
     nan_count_col = df[col].isna().sum()
     valid_count_col = total - nan_count_col
 
-    # 🎨 Pie chart
+    #Pie chart
     sizes = [valid_count_col, nan_count_col]
     labels = ["Válidos", "NaN"]
     colors = ["#66bb6a", "#ef5350"]
@@ -113,4 +113,19 @@ top_programas.plot(kind="bar", ax=ax)
 ax.set_title("Top 10 programas académicos por número de estudiantes")
 ax.set_ylabel("Cantidad de estudiantes")
 ax.set_xlabel("ID del programa")
+st.pyplot(fig)
+
+# Heatmap de correlación
+st.header("Mapa de correlación entre variables numéricas")
+
+# Seleccionar solo columnas numéricas
+num_df = df.select_dtypes(include="number")
+
+# Calcular matriz de correlación
+corr = num_df.corr(numeric_only=True)
+
+# Graficar
+fig, ax = plt.subplots(figsize=(14, 10))
+sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", square=True, ax=ax)
+ax.set_title("Mapa de correlación entre variables numéricas")
 st.pyplot(fig)
