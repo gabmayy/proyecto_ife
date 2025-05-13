@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import math
 import streamlit as st
 
+st.set_page_config(page_title="Top 10 Programas Académicos", layout="centered")
 
 # Cargar datos
 df = pd.read_csv("datos_ife.csv")  # Ajusta el nombre del archivo
