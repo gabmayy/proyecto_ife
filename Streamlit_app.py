@@ -103,6 +103,8 @@ plt.suptitle("Distribución de NaNs por columna", fontsize=16, y=1.02)
 st.pyplot(fig)
 
 # Gráfica: Top 10 programas académicos por número de estudiantes
+st.header("Top 10 programas ácadémicos")
+
 top_programas = df["program.major_id"].value_counts().head(10)
 
 fig, ax = plt.subplots()
