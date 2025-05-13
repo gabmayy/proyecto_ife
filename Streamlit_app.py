@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import math
+import seaborn as sns
 import streamlit as st
 
 st.set_page_config(page_title="Top 10 Programas Académicos", layout="centered")
@@ -115,6 +116,7 @@ ax.set_xlabel("ID del programa")
 st.pyplot(fig)
 
 #Correlación entre variables en heatmap
+st.header("Top 10 programas ácadémicos")
 num_df = df.select_dtypes(include="number")
 
 # Calcular matriz de correlación
