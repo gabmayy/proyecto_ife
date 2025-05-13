@@ -101,3 +101,10 @@ plt.suptitle("Distribución de NaNs por columna", fontsize=16, y=1.02)
 # Mostrar el gráfico en Streamlit
 st.pyplot(fig)
 
+# Gráfica: Top 10 programas académicos por número de estudiantes
+df["program.major_id"].value_counts().head(10).plot(kind="bar")
+plt.title("Top 10 programas académicos por número de estudiantes")
+plt.ylabel("Cantidad de estudiantes")
+plt.xlabel("ID del programa")
+plt.tight_layout()
+plt.show()
