@@ -3,6 +3,55 @@ import matplotlib.pyplot as plt
 import math
 import streamlit as st
 
+
+# Cargar datos
+df = pd.read_csv("datos_ife.csv")  # Ajusta el nombre del archivo
+
+# Conteo global de valores válidos y NaNs
+total_values = df.size
+nan_count = df.isna().sum().sum()
+valid_count = total_values - nan_count
+
+# Mostrar estadísticas en Streamli
+st.header("Datos default")
+st.write(f"**Total de datos:** {total_values}")
+st.write(f"**Datos válidos:** {valid_count}")
+st.write(f"**Datos NaN:** {nan_count}")
+st.write(f"**Porcentaje de datos válidos:** {valid_count / total_values * 100:.2f}%")
+st.write(f"**Porcentaje de datos NaN:** {nan_count / total_values * 100:.2f}%\n")
+
+# Parámetros de layout
+cols = 4  # columnas por fila en el grid
+rows = math.ceil(len(df.columns) / cols)
+fig, axes = plt.subplots(rows, cols, figsize=(cols * 4, rows * 4))
+
+axes = axes.flatten()
+
+for i, col in enumerate(df.columns):
+    total = len(df)
+    nan_count_col = df[col].isna().sum()
+    valid_count_col = total - nan_count_col
+
+    # 🎨 Pie chart
+    sizes = [valid_count_col, nan_count_col]
+    labels = ["Válidos", "NaN"]
+    colors = ["#66bb6a", "#ef5350"]
+    
+    axes[i].pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, startangle=90)
+    axes[i].axis('equal')
+    axes[i].set_title(col, fontsize=8)
+
+# Ocultar los subplots vacíos si hay
+for j in range(i + 1, len(axes)):
+    axes[j].axis("off")
+
+plt.tight_layout()
+plt.suptitle("Distribución de NaNs por columna", fontsize=16, y=1.02)
+
+# Mostrar el gráfico en Streamlit
+st.pyplot(fig)
+
+
 # Cargar datos
 df = pd.read_csv("datos_limpios.csv")  # Ajusta el nombre del archivo
 
@@ -52,50 +101,3 @@ plt.suptitle("Distribución de NaNs por columna", fontsize=16, y=1.02)
 # Mostrar el gráfico en Streamlit
 st.pyplot(fig)
 
-
-# Cargar datos
-df = pd.read_csv("datos_ife.csv")  # Ajusta el nombre del archivo
-
-# Conteo global de valores válidos y NaNs
-total_values = df.size
-nan_count = df.isna().sum().sum()
-valid_count = total_values - nan_count
-
-# Mostrar estadísticas en Streamli
-st.header("Datos default")
-st.write(f"**Total de datos:** {total_values}")
-st.write(f"**Datos válidos:** {valid_count}")
-st.write(f"**Datos NaN:** {nan_count}")
-st.write(f"**Porcentaje de datos válidos:** {valid_count / total_values * 100:.2f}%")
-st.write(f"**Porcentaje de datos NaN:** {nan_count / total_values * 100:.2f}%\n")
-
-# Parámetros de layout
-cols = 4  # columnas por fila en el grid
-rows = math.ceil(len(df.columns) / cols)
-fig, axes = plt.subplots(rows, cols, figsize=(cols * 4, rows * 4))
-
-axes = axes.flatten()
-
-for i, col in enumerate(df.columns):
-    total = len(df)
-    nan_count_col = df[col].isna().sum()
-    valid_count_col = total - nan_count_col
-
-    # 🎨 Pie chart
-    sizes = [valid_count_col, nan_count_col]
-    labels = ["Válidos", "NaN"]
-    colors = ["#66bb6a", "#ef5350"]
-    
-    axes[i].pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, startangle=90)
-    axes[i].axis('equal')
-    axes[i].set_title(col, fontsize=8)
-
-# Ocultar los subplots vacíos si hay
-for j in range(i + 1, len(axes)):
-    axes[j].axis("off")
-
-plt.tight_layout()
-plt.suptitle("Distribución de NaNs por columna", fontsize=16, y=1.02)
-
-# Mostrar el gráfico en Streamlit
-st.pyplot(fig)
