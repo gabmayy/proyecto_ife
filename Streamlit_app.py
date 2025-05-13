@@ -9,6 +9,21 @@ st.set_page_config(page_title="Top 10 Programas Académicos", layout="centered")
 # Cargar datos
 df = pd.read_csv("datos_ife.csv")  # Ajusta el nombre del archivo
 
+# Heatmap de correlación
+st.header("Mapa de correlación entre variables numéricas")
+
+# Seleccionar solo columnas numéricas
+num_df = df.select_dtypes(include="number")
+
+# Calcular matriz de correlación
+corr = num_df.corr(numeric_only=True)
+
+# Graficar
+fig, ax = plt.subplots(figsize=(14, 10))
+sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", square=True, ax=ax)
+ax.set_title("Mapa de correlación entre variables numéricas")
+st.pyplot(fig)
+
 # Conteo global de valores válidos y NaNs
 total_values = df.size
 nan_count = df.isna().sum().sum()
@@ -115,17 +130,4 @@ ax.set_ylabel("Cantidad de estudiantes")
 ax.set_xlabel("ID del programa")
 st.pyplot(fig)
 
-# Heatmap de correlación
-st.header("Mapa de correlación entre variables numéricas")
 
-# Seleccionar solo columnas numéricas
-num_df = df.select_dtypes(include="number")
-
-# Calcular matriz de correlación
-corr = num_df.corr(numeric_only=True)
-
-# Graficar
-fig, ax = plt.subplots(figsize=(14, 10))
-sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", square=True, ax=ax)
-ax.set_title("Mapa de correlación entre variables numéricas")
-st.pyplot(fig)
