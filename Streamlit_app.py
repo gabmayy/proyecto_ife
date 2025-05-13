@@ -13,6 +13,7 @@ nan_count = df.isna().sum().sum()
 valid_count = total_values - nan_count
 
 # Mostrar estadísticas en Streamli
+st.title("Exploración de datos")
 st.header("Datos default")
 st.write(f"**Total de datos:** {total_values}")
 st.write(f"**Datos válidos:** {valid_count}")
@@ -62,7 +63,6 @@ valid_count = total_values - nan_count
 
 
 # Mostrar estadísticas en Streamlit
-st.title("Exploración de datos")
 st.header("Datos con limpieza")
 st.write(f"**Total de datos:** {total_values}")
 st.write(f"**Datos válidos:** {valid_count}")
